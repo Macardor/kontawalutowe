@@ -22,4 +22,16 @@ public class User {
     public Account getAccount() {
         return account;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (o == this) return true;
+
+        if (!(o instanceof User)) return false;
+
+        User u = (User) o;
+
+        return PESEL.equals(u.PESEL)
+                && fullName.equals(u.fullName);
+    }
 }
