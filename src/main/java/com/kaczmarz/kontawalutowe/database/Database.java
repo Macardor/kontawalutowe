@@ -10,7 +10,7 @@ public class Database {
     private static List<User> users = new ArrayList<>();
 
     public void addUser(User user){
-        users.add(user);
+        if(!users.contains(user)) users.add(user);
     }
 
     public User getUserByPESEL(String PESEL){
