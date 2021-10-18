@@ -7,19 +7,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class Database {
-    private static List<User> users = new ArrayList<>();
+    public static List<User> users = new ArrayList<>();
 
     public void addUser(User user){
         if(!users.contains(user)) users.add(user);
     }
 
-    public User getUserByPESEL(String PESEL){
-        User u = users.stream()
+    public static User getUserByPESEL(String PESEL){
+        return users.stream()
                 .filter(user -> PESEL.equals(user.getPESEL()))
                 .findAny()
                 .orElse(null);
-
-        return u;
     }
 
     public void updateUser(User user){
