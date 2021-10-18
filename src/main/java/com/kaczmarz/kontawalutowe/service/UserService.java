@@ -23,7 +23,7 @@ public class UserService {
     }
 
     public User getUserByPESEL(String PESEL){
-        return database.getUserByPESEL(PESEL);
+        return Database.getUserByPESEL(PESEL);
     }
 
     public void updateUser(User user){

@@ -6,11 +6,15 @@ import java.util.List;
 public class Account {
     private List<SubAccount> subAccounts;
 
+    public Account(){
+
+    }
+
     public Account(List<SubAccount> subAccounts){
         this.subAccounts = subAccounts;
     }
 
-    private void addSubAccount(SubAccount subAccount){
+    public void addSubAccount(SubAccount subAccount){
         subAccounts.add(subAccount);
     }
 
@@ -20,5 +24,9 @@ public class Account {
             if(currency.equals(subAccount.getCurrency())) balance.add(subAccount.getBalance());
         }
         return balance;
+    }
+
+    public List<SubAccount> getSubAccounts() {
+        return subAccounts;
     }
 }
