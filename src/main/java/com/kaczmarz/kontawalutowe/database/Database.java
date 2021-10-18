@@ -4,7 +4,6 @@ import com.kaczmarz.kontawalutowe.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Database {
     public static List<User> users = new ArrayList<>();
@@ -26,14 +25,5 @@ public class Database {
                 u = user;
             }
         }
-    }
-
-    public void deleteUserByPesel(String PESEL){
-        User u = users.stream()
-                .filter(user -> PESEL.equals(user.getPESEL()))
-                .findAny()
-                .orElse(null);
-
-        if(Objects.nonNull(u)) users.remove(u);
     }
 }
