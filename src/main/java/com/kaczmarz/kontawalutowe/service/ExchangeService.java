@@ -24,14 +24,15 @@ public class ExchangeService {
     }
 
     public BigDecimal getExchangeAmount(Currency from, Currency to, BigDecimal amount) throws IOException {
-        BigDecimal finalAmount = new BigDecimal("0").setScale(2, RoundingMode.DOWN);;
-        //bid
-        if (from.equals(Currency.PLN)){
-            ExchangeRates exchangeRates = getExchangeRates(to);
-            finalAmount = amount.divide(exchangeRates.getAsk(), 2, RoundingMode.DOWN);
-        }
+        BigDecimal finalAmount = new BigDecimal("0").setScale(2, RoundingMode.FLOOR);
         //ask
-        if (to.equals(Currency.PLN)){
+        if (from.equals(Currency.PLN) && !to.equals(Currency.PLN)){
+            ExchangeRates exchangeRates = getExchangeRates(to);
+            finalAmount = amount.divide(exchangeRates.getAsk(), 2, RoundingMode.FLOOR);
+
+        }
+        //bid
+        if (to.equals(Currency.PLN) && !from.equals(Currency.PLN)){
             ExchangeRates exchangeRates = getExchangeRates(from);
             finalAmount = amount.multiply(exchangeRates.getBid(), new MathContext(2));
         }

@@ -50,9 +50,6 @@ public class UserService {
         String mm = split[1];
         String dd = split[2];
 
-        System.out.println("Miesiac: " + mm);
-        System.out.println("Dzien: " + dd);
-
         //PESEL 2000 - 2099
         if(Integer.parseInt(mm) > 12 && Integer.parseInt(mm) <= 32){
             mm = String.valueOf(Integer.parseInt(mm) - 20);

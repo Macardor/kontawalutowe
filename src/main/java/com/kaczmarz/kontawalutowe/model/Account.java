@@ -2,7 +2,6 @@ package com.kaczmarz.kontawalutowe.model;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 
 public class Account {
     private List<SubAccount> subAccounts;
@@ -17,6 +16,7 @@ public class Account {
     }
 
     public void addFunds(Currency currency, BigDecimal amount){
+        if(!isSubAccountPresent(currency)) addSubAccount(new SubAccount(currency, new BigDecimal("0")));
         getSubAccountByCurrency(currency)
                 .setBalance(getSubAccountBalance(currency)
                         .add(amount));
@@ -30,11 +30,8 @@ public class Account {
     }
 
     public BigDecimal getSubAccountBalance(Currency currency){
-        SubAccount temp = getSubAccountByCurrency(currency);
-
-        if (Objects.isNull(temp)) addSubAccount(new SubAccount(currency, new BigDecimal("0")));
-
-        return temp.getBalance();
+        if (getSubAccountByCurrency(currency) == null) addSubAccount(new SubAccount(currency, new BigDecimal("0")));
+        return getSubAccountByCurrency(currency).getBalance();
     }
 
     public SubAccount getSubAccountByCurrency(Currency currency){
