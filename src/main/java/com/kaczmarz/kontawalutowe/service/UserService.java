@@ -46,32 +46,29 @@ public class UserService {
 
     private LocalDate PESELToAge(String PESEL){
         String[] split = PESEL.split("(?<=\\G.{2})");
-        String yy;
+        String yy = split[0];
         String mm = split[1];
         String dd = split[2];
 
         //PESEL 2000 - 2099
         if(Integer.parseInt(mm) > 12 && Integer.parseInt(mm) <= 32){
             mm = String.valueOf(Integer.parseInt(mm) - 20);
-            yy = "20" + split[0];
+            yy = "20" + yy;
         }
         //PESEL 2100 - 2199
         else if(Integer.parseInt(mm) > 32 && Integer.parseInt(mm) <= 52){
             mm = String.valueOf(Integer.parseInt(mm) - 40);
-            yy = "21" + split[0];
+            yy = "21" + yy;
         }
         //PESEL 1900 - 1999
         else{
-            yy = "19" + split[0];
+            yy = "19" + yy;
         }
 
-        String stringDate = "";
+        if(mm.length() == 1) mm = "0" + mm;
+        if(dd.length() ==1) dd = "0" + dd;
 
-        stringDate = new StringBuilder(stringDate)
-                .append(yy)
-                .append(mm)
-                .append(dd)
-                .toString();
+        String stringDate = yy + mm + dd;
 
         return LocalDate.parse(stringDate, formatter);
     }
