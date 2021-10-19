@@ -1,6 +1,7 @@
 package com.kaczmarz.kontawalutowe.service;
 
 import com.kaczmarz.kontawalutowe.database.Database;
+import com.kaczmarz.kontawalutowe.exception.UserNotFoundException;
 import com.kaczmarz.kontawalutowe.model.User;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,13 @@ public class UserService {
     }
 
     public User getUserByPESEL(String PESEL){
-        return Database.getUserByPESEL(PESEL);
+        User user;
+        try {
+            user = Database.getUserByPESEL(PESEL);
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException("User not found in Database");
+        }
+        return user;
     }
 
     public void updateUser(User user){

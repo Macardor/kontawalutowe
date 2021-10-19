@@ -39,7 +39,7 @@ public class ExchangeService {
     }
 
     //exchange rates for given currency to PLN
-    public ExchangeRates getExchangeRates(Currency currency) throws IOException {
+    private ExchangeRates getExchangeRates(Currency currency) throws IOException {
         JSONObject rates = getExchangeRatesFromApi(currency);
         String ask = rates.get("ask").toString();
         String bid = rates.get("bid").toString();

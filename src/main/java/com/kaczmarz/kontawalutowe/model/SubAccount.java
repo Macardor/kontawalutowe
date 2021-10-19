@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class SubAccount {
     private Currency currency;
-    private BigDecimal balance; //*0.01
+    private BigDecimal balance;
 
     public SubAccount(Currency currency, BigDecimal balance){
         this.currency = currency;

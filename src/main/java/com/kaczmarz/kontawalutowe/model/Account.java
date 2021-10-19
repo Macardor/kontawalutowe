@@ -1,6 +1,6 @@
 package com.kaczmarz.kontawalutowe.model;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,15 +21,35 @@ public class Account {
                 .findAny()
                 .orElse(null);
 
-        if (Objects.nonNull(temp)) subAccounts.add(subAccount);
+        if (Objects.isNull(temp)) subAccounts.add(subAccount);
     }
 
-    public BigInteger getBalance(Currency currency){
-        BigInteger balance = new BigInteger("0");
-        for (SubAccount subAccount : subAccounts) {
-            if(currency.equals(subAccount.getCurrency())) balance.add(subAccount.getBalance());
-        }
-        return balance;
+    public void addFunds(Currency currency, BigDecimal amount){
+        getSubAccountByCurrency(currency)
+                .setBalance(getSubAccountBalance(currency)
+                        .add(amount));
+    }
+
+    public void substractFunds(Currency currency, BigDecimal amount){
+        getSubAccountByCurrency(currency)
+                .setBalance(getSubAccountBalance(currency)
+                        .subtract(amount));;
+
+    }
+
+    public BigDecimal getSubAccountBalance(Currency currency){
+        SubAccount temp = getSubAccountByCurrency(currency);
+
+        if (Objects.isNull(temp)) addSubAccount(new SubAccount(currency, new BigDecimal("0")));
+
+        return temp.getBalance();
+    }
+
+    public SubAccount getSubAccountByCurrency(Currency currency){
+        return subAccounts.stream()
+                .filter(sA -> sA.getCurrency().equals(currency))
+                .findAny()
+                .orElse(null);
     }
 
     public List<SubAccount> getSubAccounts() {
