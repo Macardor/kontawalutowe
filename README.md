@@ -31,6 +31,6 @@ Przyklad danych wejsciowych w formacie JSON:
 
 API pobiera informacje o obecnym kursie wymiany walut z http://api.nbp.pl/
 
-Projekt zostal zrealizowany przy pomocy jezyka Java i SpringBoot, struktura - Maven, kontrola wersji - GitHub.
+Projekt zostal zrealizowany przy pomocy jezyka Java i frameworka Spring, struktura - Maven, kontrola wersji - GitHub, testy - JUnit5.
 
 Nie posiada persystentnej bazy danych.
