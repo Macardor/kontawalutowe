@@ -2,6 +2,7 @@ package com.kaczmarz.kontawalutowe.model;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Objects;
 
 public class Account {
     private List<SubAccount> subAccounts;
@@ -15,7 +16,12 @@ public class Account {
     }
 
     public void addSubAccount(SubAccount subAccount){
-        subAccounts.add(subAccount);
+        SubAccount temp = subAccounts.stream()
+                .filter(sA -> subAccount.getCurrency().equals(sA.getCurrency()))
+                .findAny()
+                .orElse(null);
+
+        if (Objects.nonNull(temp)) subAccounts.add(subAccount);
     }
 
     public BigInteger getBalance(Currency currency){

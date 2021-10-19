@@ -45,5 +45,12 @@ public class UserController {
         }else throw new UnderageUserException("User has to be age 18 or above to create an account");
     }
 
+    @PostMapping(
+            value = "/exchange",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public void exchangeMoney(@RequestBody Map<String, String> userData){
+
+    }
 
 }

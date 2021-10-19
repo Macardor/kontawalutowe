@@ -1,12 +1,12 @@
 package com.kaczmarz.kontawalutowe.model;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 public class SubAccount {
     private Currency currency;
-    private BigInteger balance; //*0.01
+    private BigDecimal balance; //*0.01
 
-    public SubAccount(Currency currency, BigInteger balance){
+    public SubAccount(Currency currency, BigDecimal balance){
         this.currency = currency;
         this.balance = balance;
     }
@@ -15,11 +15,11 @@ public class SubAccount {
         return currency;
     }
 
-    public BigInteger getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(BigInteger balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 }

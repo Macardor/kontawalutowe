@@ -1,6 +1,5 @@
 package com.kaczmarz.kontawalutowe.service;
 
-import com.kaczmarz.kontawalutowe.database.Database;
 import com.kaczmarz.kontawalutowe.model.Currency;
 import com.kaczmarz.kontawalutowe.model.ExchangeRates;
 import org.json.simple.JSONArray;
@@ -10,7 +9,9 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.math.BigInteger;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
@@ -22,6 +23,21 @@ public class ExchangeService {
 
     }
 
+    public BigDecimal getExchangeAmount(Currency from, Currency to, BigDecimal amount) throws IOException {
+        BigDecimal finalAmount = new BigDecimal("0").setScale(2, RoundingMode.DOWN);;
+        //bid
+        if (from.equals(Currency.PLN)){
+            ExchangeRates exchangeRates = getExchangeRates(to);
+            finalAmount = amount.divide(exchangeRates.getAsk(), 2, RoundingMode.DOWN);
+        }
+        //ask
+        if (to.equals(Currency.PLN)){
+            ExchangeRates exchangeRates = getExchangeRates(from);
+            finalAmount = amount.multiply(exchangeRates.getBid(), new MathContext(2));
+        }
+        return finalAmount;
+    }
+
     //exchange rates for given currency to PLN
     public ExchangeRates getExchangeRates(Currency currency) throws IOException {
         JSONObject rates = getExchangeRatesFromApi(currency);
@@ -30,8 +46,8 @@ public class ExchangeService {
 
         return new ExchangeRates(
                 currency,
-                new BigInteger(bid),
-                new BigInteger(ask));
+                new BigDecimal(bid),
+                new BigDecimal(ask));
     }
 
     private JSONObject getExchangeRatesFromApi(Currency currency) throws IOException {

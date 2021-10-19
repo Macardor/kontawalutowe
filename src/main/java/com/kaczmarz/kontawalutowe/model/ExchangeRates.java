@@ -1,23 +1,23 @@
 package com.kaczmarz.kontawalutowe.model;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 public class ExchangeRates {
     private Currency currency;
-    private BigInteger bid;
-    private BigInteger ask;
+    private BigDecimal bid;
+    private BigDecimal ask;
 
-    public ExchangeRates(Currency currency, BigInteger bid, BigInteger ask){
+    public ExchangeRates(Currency currency, BigDecimal bid, BigDecimal ask){
         this.currency = currency;
         this.bid = bid;
         this.ask = ask;
     }
 
-    public BigInteger getBid() {
+    public BigDecimal getBid() {
         return bid;
     }
 
-    public BigInteger getAsk() {
+    public BigDecimal getAsk() {
         return ask;
     }
 
