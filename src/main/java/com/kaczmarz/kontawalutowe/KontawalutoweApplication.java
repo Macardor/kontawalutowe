@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class KontawalutoweApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(KontawalutoweApplication.class, args);
 	}
 

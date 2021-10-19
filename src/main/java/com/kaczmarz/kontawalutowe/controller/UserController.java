@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,8 +40,9 @@ public class UserController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public void registerUser(@RequestBody Map<String, String> userData){
-        Account account = new Account();
+        Account account = new Account(new ArrayList<>());
         account.addSubAccount(new SubAccount(Currency.PLN, new BigDecimal(userData.get("balance"))));
+
         User inputUser = new User(
                 userData.get("pesel"),
                 userData.get("fullName"),

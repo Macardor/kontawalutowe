@@ -12,7 +12,7 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class UserService {
     private static final int AGE = 18;
-    private Database database;
+    private Database database = new Database();
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     public UserService(){
@@ -41,9 +41,7 @@ public class UserService {
         LocalDate userDateOfBirth = PESELToAge(PESEL);
         LocalDate present = LocalDate.now();
         long diff = ChronoUnit.YEARS.between(userDateOfBirth, present);
-
-        if(diff >= AGE) return true;
-        else return false;
+        return diff >= AGE;
     }
 
     private LocalDate PESELToAge(String PESEL){
@@ -51,6 +49,9 @@ public class UserService {
         String yy;
         String mm = split[1];
         String dd = split[2];
+
+        System.out.println("Miesiac: " + mm);
+        System.out.println("Dzien: " + dd);
 
         //PESEL 2000 - 2099
         if(Integer.parseInt(mm) > 12 && Integer.parseInt(mm) <= 32){
@@ -64,7 +65,7 @@ public class UserService {
         }
         //PESEL 1900 - 1999
         else{
-            yy = "21" + split[0];
+            yy = "19" + split[0];
         }
 
         String stringDate = "";

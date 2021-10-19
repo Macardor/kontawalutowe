@@ -7,21 +7,13 @@ import java.util.Objects;
 public class Account {
     private List<SubAccount> subAccounts;
 
-    public Account(){
-
-    }
 
     public Account(List<SubAccount> subAccounts){
         this.subAccounts = subAccounts;
     }
 
     public void addSubAccount(SubAccount subAccount){
-        SubAccount temp = subAccounts.stream()
-                .filter(sA -> subAccount.getCurrency().equals(sA.getCurrency()))
-                .findAny()
-                .orElse(null);
-
-        if (Objects.isNull(temp)) subAccounts.add(subAccount);
+        this.subAccounts.add(subAccount);
     }
 
     public void addFunds(Currency currency, BigDecimal amount){
@@ -50,6 +42,15 @@ public class Account {
                 .filter(sA -> sA.getCurrency().equals(currency))
                 .findAny()
                 .orElse(null);
+    }
+
+    private boolean isSubAccountPresent(Currency currency){
+        SubAccount temp = subAccounts.stream()
+                .filter(sA -> (sA.getCurrency().equals(currency)))
+                .findAny()
+                .orElse(null);
+
+        return temp != null;
     }
 
     public List<SubAccount> getSubAccounts() {
